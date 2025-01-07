@@ -2,7 +2,7 @@
 MEMEAirlines, a simple Vue, Nodejs and MySQL demonstration project
 
 ## Project setup
-do the following to setup the project
+Do the following to setup the project
 ```
 cd MEMEAirlinesClient
 npm install
@@ -12,13 +12,13 @@ npm install
 cd MEMEAirlinesServer
 npm install
 ```
-
+And setup the mysql database, rember to import the relevant sql code from base_db.sql.
 Then copy the **`.env.example`** to an **`.env`** file in the server directory and fill in the required fields.
 
 Start the server by running
 ```
 cd MEMEAirlinesServer
-npm start
+npm run dev
 ```
 and the client by running
 ```
