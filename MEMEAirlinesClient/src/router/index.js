@@ -1,8 +1,10 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import Home from '../components/BaseView.vue'
+import Home from '../views/BaseView.vue'
+import NewFlight from "../views/NewFlight.vue";
 
 const routes = [
     { path: '/', component: Home },
+    { path: '/new-flight', component: NewFlight}
 ]
 
 const router = createRouter({
