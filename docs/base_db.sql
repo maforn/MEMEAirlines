@@ -115,7 +115,7 @@ create table Dipendente(
     Cognome char(50) not null,
     Ruolo char(50) not null,
     Compenso_orario float not null,
-    Ore_annuali_previste int not null
+    Ore_annuali_previste int
 );
 
 create table Prodotto(
@@ -290,16 +290,16 @@ INSERT INTO InterventoDiManutenzione (Tipo, Data, Durata, Aeromobile) VALUES
 
 -- Inserimenti per la tabella Dipendente
 INSERT INTO Dipendente (Nome, Cognome, Ruolo, Compenso_orario, Ore_annuali_previste) VALUES
-('Giovanni', 'Rossi', 'Pilota', 50.00, 1200),
-('Elisa', 'Bianchi', 'Assistente di Volo', 20.00, 1000),
-('Marco', 'Verdi', 'Tecnico di Manutenzione', 30.00, 800),
-('Anna', 'Neri', 'Pilota', 55.00, 1100),
-('Luca', 'Blu', 'Assistente di Volo', 18.00, 900),
-('Francesca', 'Gialli', 'Tecnico di Manutenzione', 28.00, 850),
-('Paolo', 'Viola', 'Pilota', 60.00, 1150),
-('Sara', 'Rosa', 'Assistente di Volo', 22.00, 950),
-('Giorgio', 'Marrone', 'Tecnico di Manutenzione', 35.00, 780),
-('Clara', 'Celeste', 'Pilota', 65.00, 1200);
+('Giovanni', 'Rossi', 'Pilota', 50.00, NULL),
+('Elisa', 'Bianchi', 'Assistente di Volo', 20.00, NULL),
+('Marco', 'Verdi', 'Tecnico di Manutenzione', 30.00, NULL),
+('Anna', 'Neri', 'Personale di Terra', 55.00, 2000),
+('Luca', 'Blu', 'Assistente di Volo', 18.00, NULL),
+('Francesca', 'Gialli', 'Tecnico di Manutenzione', 28.00, NULL),
+('Paolo', 'Viola', 'Pilota', 60.00, NULL),
+('Sara', 'Rosa', 'Assistente di Volo', 22.00, NULL),
+('Giorgio', 'Marrone', 'Tecnico di Manutenzione', 35.00, NULL),
+('Clara', 'Celeste', 'Pilota', 65.00, NULL);
 
 -- Inserimenti per la tabella Prodotto
 INSERT INTO Prodotto (Nome, Fornitore, Numero, Unita_di_misura) VALUES
