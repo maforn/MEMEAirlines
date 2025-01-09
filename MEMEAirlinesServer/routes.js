@@ -296,5 +296,101 @@ router.get('/flights/:flightId/tickets', (req, res) => {
     res.json(results);
   });
 });
+router.post('/sellTicket', (req, res) => {
 
+    const queryBiglietto = `
+    INSERT INTO Biglietto (Stato, Posto, Classe, Orario_check_in, Cliente, Volo, Menu, ServizioDiCatering)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+  `;
+
+    const queryDatiAcquisto = `
+    INSERT INTO DatiDiAcquisto (Biglietto, Prezzo_pagato, Data_di_acquisto, Coordinate_di_pagamento, Rimborsato)
+    VALUES (?, ?, ?, ?, ?);
+  `;
+
+    const { posto, classe, cliente, volo, menu, servizioDiCatering, prezzoPagato,  coordinateDiPagamento } = req.body;
+
+    const stato = 'pianificato';
+    const orarioCheckIn = (new Date());
+    const dataDiAcquisto = new Date();
+    const rimborsato = false;
+    db.query(queryBiglietto, [stato, posto, classe, orarioCheckIn, cliente, volo, menu, servizioDiCatering], (err, results) => {
+        if (err) {
+            console.log(err);
+
+            res.status(500).send('Error adding ticket to database');
+            return;
+        }
+        db.query(queryDatiAcquisto, [results.insertId, prezzoPagato, dataDiAcquisto, coordinateDiPagamento, rimborsato], (err, _) => {
+            if (err) {
+                res.status(500).send('Error adding purchase data to database');
+                return;
+            }
+            res.status(201).send('Ticket added successfully');
+        });
+    });
+});
+
+router.get('/menu', (req, res) => {
+    db.query('select  Menu.Nome,Menu.ServizioDiCatering from Menu,Possiede,ServizioDiCatering where Possiede.Volo=? and Possiede.ServizioDiCatering=ServizioDiCatering.ID and ServizioDiCatering.ID=Menu.ServizioDiCatering;',[req.query.volo], (err, results) => {
+        if (err) {
+            res.status(500).send('Error fetching menu from database');
+            return;
+        }
+        res.json(results);
+    });
+});
+
+router.get('/suppliers', (req, res) => {
+    db.query('SELECT * FROM Fornitore', (err, results) => {
+        if (err) {
+            res.status(500).send('Error fetching suppliers from database');
+            return;
+        }
+        res.json(results);
+    });
+});
+
+router.post('/supplier', (req, res) => {
+    const {Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono} = req.body;
+    const queryFornitore = `INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono) VALUES (?, ?, ?, ?, ?, ?)`;
+    db.query(queryFornitore, [Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono], (err, _) => {
+        if (err) {
+            res.status(500).send('Error adding supplier to database');
+            return;
+        }
+        res.status(201).send('Supplier added successfully');
+    });
+});
+
+router.get('/user-tickets', (req, res) => {
+
+    const query = `SELECT Biglietto.Stato, Biglietto.Posto, Biglietto.Classe, DatiDiAcquisto.Prezzo_pagato, Volo.Origine, Volo.Destinazione, Volo.Partenza_prevista, Volo.Arrivo_previsto
+                   FROM Biglietto
+                            INNER JOIN DatiDiAcquisto ON Biglietto.ID = DatiDiAcquisto.Biglietto
+                            INNER JOIN Volo ON Biglietto.Volo = Volo.ID
+                   WHERE Biglietto.Cliente = ?;`;
+
+    db.query(query, [req.query.cliente], (err, results) => {
+        if (err) {
+            res.status(500).send('Error fetching user tickets from database');
+            return;
+        }
+        res.json(results);
+    });
+});
+
+router.get('/monthly-revenue', (req, res) => {
+    const query = `SELECT SUM(DatiDiAcquisto.Prezzo_pagato) AS Totale_Incasso
+                   FROM DatiDiAcquisto
+                   WHERE MONTH(DatiDiAcquisto.Data_di_acquisto) = MONTH(CURDATE()) AND YEAR(DatiDiAcquisto.Data_di_acquisto) = YEAR(CURDATE());`;
+
+    db.query(query, (err, results) => {
+        if (err) {
+            res.status(500).send('Error fetching monthly revenue from database');
+            return;
+        }
+        res.json(results);
+    });
+});
 module.exports = router;
