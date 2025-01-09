@@ -51,7 +51,7 @@ const checkFlights = async () => {
     <form @submit.prevent="submitForm">
       <div class="mb-4">
         <label for="aircraft" class="block text-sm font-medium text-gray-700">Aircraft</label>
-        <select v-model="newFlight.aircraftId" id="aircraft" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+        <select v-model="newFlight.aircraftId" id="aircraft" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
           <option value="" disabled>Select an aircraft</option>
           <option v-for="aircraft in aircrafts" :key="aircraft.ID" :value="aircraft.ID">{{ aircraft.ID }} - {{ aircraft.MODELLO }}</option>
         </select>
