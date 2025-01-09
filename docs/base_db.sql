@@ -239,6 +239,7 @@ INSERT INTO ServizioDiCatering (Nome, Fornitore) VALUES
 -- Inserimenti per la tabella Menu
 INSERT INTO Menu (Nome, ServizioDiCatering, Prezzo, Descrizione, Tipo_di_cucina, Allergeni, Carboidrati, Sale, Proteine, Grassi, Fibre) VALUES
 ('Menu Vegano', 1, 15.00, 'Menu vegano con ingredienti biologici', 'Vegano', 'Nessuno', 50.0, 2.0, 10.0, 5.0, 8.0),
+('Menu Kids', 1, 8.00, 'Menu per bambini', 'Kids', 'Glutine', 70.0, 3.0, 10.0, 5.0, 6.0),
 ('Menu Classico', 2, 12.00, 'Menu classico con opzioni tradizionali', 'Tradizionale', 'Glutine', 60.0, 3.0, 15.0, 10.0, 5.0),
 ('Menu Gluten Free', 3, 18.00, 'Menu senza glutine', 'Senza Glutine', 'Nessuno', 55.0, 2.5, 12.0, 6.0, 7.0),
 ('Menu Gourmet', 4, 25.00, 'Menu gourmet di alta qualità', 'Gourmet', 'Lattosio', 40.0, 1.5, 20.0, 8.0, 6.0),
@@ -353,6 +354,15 @@ INSERT INTO FaParteDel (Volo, Dipendente) VALUES
 (5, 7),
 (5, 9);
 
+INSERT INTO Possiede (Volo, ServizioDiCatering, Tempi_di_carico, Orario_di_carico, Specifiche_di_conservazione) VALUES
+(4, 1, 2, '2025-01-18 05:00:00', 'Conservare a 4°C'),
+(5, 2, 3, '2025-01-19 08:00:00', 'Conservare a 6°C'),
+(6, 3, 1, '2025-01-20 11:00:00', 'Conservare a 3°C'),
+(7, 4, 2, '2025-01-21 06:00:00', 'Conservare a 5°C'),
+(8, 5, 3, '2025-01-22 09:00:00', 'Conservare a 7°C'),
+(9, 6, 1, '2025-01-23 12:00:00', 'Conservare a 2°C'),
+(10, 7, 2, '2025-01-24 07:00:00', 'Conservare a 4°C');
+
 -- 1. Inserire un nuovo volo disponibile
 INSERT INTO Volo (Origine, Destinazione, Partenza_prevista, Arrivo_previsto, Stato, Aeromobile)
 VALUES ();
@@ -416,13 +426,23 @@ WHERE MONTH(DatiDiAcquisto.Data_di_acquisto) = MONTH(CURDATE()) AND YEAR(DatiDiA
 
 
 -- 15. Visualizzare i menu disponibili per un volo
-
+SELECT Menu.Nome, Menu.Descrizione, Menu.Prezzo
+FROM Menu JOIN Possiede ON Possiede.ServizioDiCatering = Menu.ServizioDiCatering
+WHERE Possiede.Volo = ?;
 
 
 -- 16. Visualizzare la lista dei fornitori
 SELECT * FROM Fornitore;
 
 -- 17. Aggiornare lo stato del volo a cancellato
+START TRANSACTION;
+
 UPDATE Volo
 SET Stato = 'cancellato'
 WHERE ID = 1;
+
+UPDATE Biglietto
+SET Stato = 'cancellato'
+WHERE Volo = 1;
+
+COMMIT;
