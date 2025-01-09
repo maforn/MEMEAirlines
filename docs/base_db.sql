@@ -418,7 +418,9 @@ INNER JOIN DatiDiAcquisto ON Biglietto.ID = DatiDiAcquisto.Biglietto
 WHERE Biglietto.Cliente = 1;
 
 -- 12. Calcolare il numero di ore di volo di un aeromobile
-
+SELECT SUM(TIMESTAMPDIFF(Minute, Partenza_effettiva, Arrivo_effettivo)) AS flightMinutes
+FROM Volo
+WHERE Aeromobile = ? AND Stato = 'completato';
 
 -- 13. Calcolare per il mese corrente il totale dell'incasso dei biglietti venduti
 SELECT SUM(DatiDiAcquisto.Prezzo_pagato) AS Totale_Incasso
