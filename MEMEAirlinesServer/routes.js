@@ -13,7 +13,7 @@ router.get('/aircrafts', (req, res) => {
 });
 
 router.get('/flights', (req, res) => {
-  db.query('SELECT * FROM Volo ORDER BY Partenza_prevista DESC LIMIT 25', (err, results) => {
+  db.query('SELECT * FROM Volo ORDER BY Partenza_prevista DESC', (err, results) => {
     if (err) {
       res.status(500).send('Error fetching flights from database');
       return;
@@ -160,6 +160,140 @@ router.post('/employees', (req, res) => {
       return;
     }
     res.status(201).send('Employee added successfully');
+  });
+});
+
+// Fetch all maintainers
+router.get('/maintenteers', (req, res) => {
+  db.query('SELECT * FROM Dipendente WHERE Ruolo = "Tecnico di Manutenzione"', (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching maintainers from database');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Fetch all maintenance tasks
+router.get('/maintenances', (req, res) => {
+  db.query('SELECT * FROM InterventoDiManutenzione', (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching maintenance tasks from database');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Fetch all assignments
+router.get('/assignments', (req, res) => {
+  db.query('SELECT * FROM Effettua', (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching assignments from database');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Add a new assignment
+router.post('/assignments', (req, res) => {
+  const { maintenanceId, employeeId } = req.body;
+
+  const query = `
+    INSERT INTO Effettua (InterventoDiManutenzione, Dipendente)
+    VALUES (?, ?)
+  `;
+
+  db.query(query, [maintenanceId, employeeId], (err, _) => {
+    if (err) {
+      res.status(500).send('Error adding assignment to database');
+      return;
+    }
+    res.status(201).send('Assignment added successfully');
+  });
+});
+
+// Fetch menus by flight ID
+router.get('/flights/:flightId/menus', (req, res) => {
+  const flightId = req.params.flightId;
+  const query = `
+    SELECT Menu.Nome, Menu.Descrizione, Menu.Prezzo
+    FROM Menu JOIN Possiede ON Possiede.ServizioDiCatering = Menu.ServizioDiCatering
+    WHERE Possiede.Volo = ?
+  `;
+
+  db.query(query, [flightId], (err, results) => {
+    if (err) {
+      res.status(500).send(['Error fetching menus for flight from database', err]);
+      return;
+    }
+    res.json(results);
+  });
+});
+
+router.post('/flights/:flightId/cancel', (req, res) => {
+  const flightId = req.params.flightId;
+  const cancelFlightQuery = `
+    UPDATE Volo
+    SET Stato = 'cancellato'
+    WHERE ID = ?;
+  `;
+  const cancelTicketsQuery = `
+    UPDATE Biglietto
+    SET Stato = 'cancellato'
+    WHERE Volo = ?;
+  `;
+
+  db.beginTransaction(err => {
+    if (err) {
+      res.status(500).send('Error starting transaction');
+      return;
+    }
+
+    db.query(cancelFlightQuery, [flightId], (err, _) => {
+      if (err) {
+        return db.rollback(() => {
+          res.status(500).send('Error cancelling flight');
+        });
+      }
+
+      db.query(cancelTicketsQuery, [flightId], (err, _) => {
+        if (err) {
+          return db.rollback(() => {
+            res.status(500).send('Error cancelling tickets');
+          });
+        }
+
+        db.commit(err => {
+          if (err) {
+            return db.rollback(() => {
+              res.status(500).send('Error committing transaction');
+            });
+          }
+          res.send('Flight and tickets cancelled successfully');
+        });
+      });
+    });
+  });
+});
+
+// Fetch all tickets by flight ID
+router.get('/flights/:flightId/tickets', (req, res) => {
+  const flightId = req.params.flightId;
+  const query = `
+    SELECT Biglietto.ID, Biglietto.Stato, Biglietto.Posto, Biglietto.Classe, Biglietto.Orario_check_in, Cliente.Nome, Cliente.Cognome
+    FROM Biglietto
+    INNER JOIN Cliente ON Biglietto.Cliente = Cliente.ID
+    WHERE Biglietto.Volo = ?
+  `;
+
+  db.query(query, [flightId], (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching tickets for flight from database');
+      return;
+    }
+    res.json(results);
   });
 });
 
