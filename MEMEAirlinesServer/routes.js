@@ -107,7 +107,6 @@ router.get('/suppliers', (req, res) => {
 
 router.post('/supplier', (req, res) => {
     const {Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono} = req.body;
-    console.log(req.body);
     const queryFornitore = `INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono) VALUES (?, ?, ?, ?, ?, ?)`;
     db.query(queryFornitore, [Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono], (err, _) => {
         if (err) {
@@ -115,6 +114,23 @@ router.post('/supplier', (req, res) => {
             return;
         }
         res.status(201).send('Supplier added successfully');
+    });
+});
+
+router.get('/user-tickets', (req, res) => {
+
+    const query = `SELECT Biglietto.Stato, Biglietto.Posto, Biglietto.Classe, DatiDiAcquisto.Prezzo_pagato, Volo.Origine, Volo.Destinazione, Volo.Partenza_prevista, Volo.Arrivo_previsto
+                   FROM Biglietto
+                            INNER JOIN DatiDiAcquisto ON Biglietto.ID = DatiDiAcquisto.Biglietto
+                            INNER JOIN Volo ON Biglietto.Volo = Volo.ID
+                   WHERE Biglietto.Cliente = ?;`;
+
+    db.query(query, [req.query.cliente], (err, results) => {
+        if (err) {
+        res.status(500).send('Error fetching user tickets from database');
+        return;
+        }
+        res.json(results);
     });
 });
 
