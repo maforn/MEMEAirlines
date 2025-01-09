@@ -20,7 +20,7 @@ const routes = [
     { path: '/sell-ticket', component:  SellTicket},
     { path: '/new-supplier', component: NewSupplier},
     { path: '/user-tickets', component: UserTickets},
-    { path: '/monthly-revenue', component: MonthlyRevenue}
+    { path: '/monthly-revenue', component: MonthlyRevenue},
     { path: '/new-flight', component: NewFlight },
     { path: '/new-customer', component: NewCustomer },
     { path: '/new-maintenance', component: NewMaintenance },

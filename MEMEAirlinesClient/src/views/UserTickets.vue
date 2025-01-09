@@ -41,6 +41,7 @@ onMounted(fetchTickets);
       <div class="mb-4">
         <label for="user" class="block text-sm font-medium text-gray-700">User</label>
         <select v-model="user" id="user" name="user" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <option value="" disabled>Select a User</option>
           <option v-for="user in users" :key="user.ID" :value="user.ID">{{ user.Nome }} {{ user.Cognome }}</option>
         </select>
       </div>
