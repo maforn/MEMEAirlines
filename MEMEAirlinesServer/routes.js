@@ -134,4 +134,18 @@ router.get('/user-tickets', (req, res) => {
     });
 });
 
+router.get('/monthly-revenue', (req, res) => {
+    const query = `SELECT SUM(DatiDiAcquisto.Prezzo_pagato) AS Totale_Incasso
+                   FROM DatiDiAcquisto
+                   WHERE MONTH(DatiDiAcquisto.Data_di_acquisto) = MONTH(CURDATE()) AND YEAR(DatiDiAcquisto.Data_di_acquisto) = YEAR(CURDATE());`;
+
+    db.query(query, (err, results) => {
+        if (err) {
+        res.status(500).send('Error fetching monthly revenue from database');
+        return;
+        }
+        res.json(results);
+    });
+});
+
 module.exports = router;
