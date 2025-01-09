@@ -44,6 +44,17 @@ router.get('/customers', (req, res) => {
   db.query('SELECT * FROM Cliente ORDER BY ID DESC', (err, results) => {
     if (err) {
       res.status(500).send('Error fetching customers from database');
+    return;
+    }
+    res.json(results);
+  });
+});
+
+// Fetch all employees
+router.get('/employees', (req, res) => {
+  db.query('SELECT * FROM Dipendente', (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching employees from database
       return;
     }
     res.json(results);
@@ -131,6 +142,24 @@ router.get('/flighthours', (req, res) => {
     const flightMinutes = results[0]['flightMinutes'];
     const hours = (flightMinutes / 60).toFixed(2);
     res.json({ hours });
+  });
+});
+
+// Add a new employee
+router.post('/employees', (req, res) => {
+  const { nome, cognome, ruolo, compensoOrario, oreAnnualiPreviste } = req.body;
+
+  const query = `
+    INSERT INTO Dipendente (Nome, Cognome, Ruolo, Compenso_orario, Ore_annuali_previste)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  db.query(query, [nome, cognome, ruolo, compensoOrario, oreAnnualiPreviste || null], (err, _) => {
+    if (err) {
+      res.status(500).send('Error adding employee to database');
+      return;
+    }
+    res.status(201).send('Employee added successfully');
   });
 });
 
