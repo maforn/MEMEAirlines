@@ -28,6 +28,12 @@
                         <th
                             class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
                             Cognome</th>
+                      <th
+                          class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Classe</th>
+                      <th
+                          class="px-6 py-3 border-b border-gray-200 bg-gray-50 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                        Posto</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -35,6 +41,8 @@
                         <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ passenger.Nome }}
                         </td>
                         <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ passenger.Cognome }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ passenger.Classe }}</td>
+                      <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ passenger.Posto }}</td>
                     </tr>
                 </tbody>
             </table>

@@ -54,7 +54,7 @@ router.get('/customers', (req, res) => {
 router.get('/employees', (req, res) => {
   db.query('SELECT * FROM Dipendente', (err, results) => {
     if (err) {
-      res.status(500).send('Error fetching employees from database
+      res.status(500).send('Error fetching employees from database');
       return;
     }
     res.json(results);
@@ -109,7 +109,7 @@ router.get('/passengers', (req, res) => {
   const { flightId } = req.query;
 
   const query = `
-    SELECT Cliente.Nome, Cliente.Cognome
+    SELECT Cliente.Nome, Cliente.Cognome, Biglietto.Posto, Biglietto.Classe
     FROM Cliente
     INNER JOIN Biglietto ON Cliente.ID = Biglietto.Cliente
     WHERE Biglietto.Volo = ? AND Biglietto.Stato IN ('pianificato', 'attivo')

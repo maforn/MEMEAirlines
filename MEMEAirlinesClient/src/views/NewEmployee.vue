@@ -57,7 +57,7 @@ onMounted(fetchEmployees);
           <input v-model="newEmployee.compensoOrario" type="number" id="compensoOrario" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm" required>
         </div>
         <div class="mb-4">
-          <label for="oreAnnualiPreviste" class="block text-sm font-medium text-gray-700">Ore Annuali Previste</label>
+          <label for="oreAnnualiPreviste" class="block text-sm font-medium text-gray-700">Ore Annuali Previste (può essere NULL)</label>
           <input v-model="newEmployee.oreAnnualiPreviste" type="number" id="oreAnnualiPreviste" class="mt-1 block w-full py-2 px-3 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
         </div>
         <button type="submit" class="w-full py-2 px-4 bg-indigo-600 text-white font-medium rounded-md shadow-sm hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">Add Employee</button>

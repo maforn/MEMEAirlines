@@ -222,6 +222,9 @@ INSERT INTO Volo (Origine, Destinazione, Partenza_prevista, Arrivo_previsto, Sta
 ('Perugia', 'Catania', '2025-01-22 16:00:00', '2025-01-22 18:00:00', 'pianificato', 8),
 ('Reggio Calabria', 'Ancona', '2025-01-23 11:00:00', '2025-01-23 12:45:00', 'pianificato', 9),
 ('Lamezia Terme', 'Parma', '2025-01-24 14:00:00', '2025-01-24 15:30:00', 'pianificato', 10);
+INSERT INTO Volo (Origine, Destinazione, Partenza_prevista, Arrivo_previsto, Stato, Aeromobile, Partenza_effettiva, Arrivo_effettivo) VALUES
+('Roma', 'Milano', '2025-01-15 08:00:00', '2025-01-15 09:30:00', 'completato', 1, '2025-01-15 08:00:00', '2025-01-15 09:30:00');
+
 
 -- Inserimenti per la tabella ServizioDiCatering
 INSERT INTO ServizioDiCatering (Nome, Fornitore) VALUES
