@@ -40,4 +40,59 @@ router.post('/flights', (req, res) => {
   });
 });
 
+router.post('/sellTicket', (req, res) => {
+
+  const queryBiglietto = `
+    INSERT INTO Biglietto (Stato, Posto, Classe, Orario_check_in, Cliente, Volo, Menu, ServizioDiCatering)
+    VALUES (?, ?, ?, ?, ?, ?, ?, ?);
+  `;
+
+  const queryDatiAcquisto = `
+    INSERT INTO DatiDiAcquisto (Biglietto, Prezzo_pagato, Data_di_acquisto, Coordinate_di_pagamento, Rimborsato)
+    VALUES (?, ?, ?, ?, ?);
+  `;
+
+  const { posto, classe, cliente, volo, menu, servizioDiCatering, prezzoPagato,  coordinateDiPagamento } = req.body;
+
+  const stato = 'pianificato';
+  const orarioCheckIn = (new Date());
+  const dataDiAcquisto = new Date();
+  const rimborsato = false;
+  db.query(queryBiglietto, [stato, posto, classe, orarioCheckIn, cliente, volo, menu, servizioDiCatering], (err, results) => {
+      if (err) {
+          console.log(err);
+
+        res.status(500).send('Error adding ticket to database');
+        return;
+      }
+      db.query(queryDatiAcquisto, [results.insertId, prezzoPagato, dataDiAcquisto, coordinateDiPagamento, rimborsato], (err, _) => {
+        if (err) {
+          res.status(500).send('Error adding purchase data to database');
+          return;
+        }
+        res.status(201).send('Ticket added successfully');
+      });
+    });
+});
+
+router.get('/menu', (req, res) => {
+    db.query('select  Menu.Nome,Menu.ServizioDiCatering from Menu,Possiede,ServizioDiCatering where Possiede.Volo=? and Possiede.ServizioDiCatering=ServizioDiCatering.ID and ServizioDiCatering.ID=Menu.ServizioDiCatering;',[req.query.volo], (err, results) => {
+        if (err) {
+        res.status(500).send('Error fetching menu from database');
+        return;
+        }
+        res.json(results);
+    });
+});
+
+router.get('/customers', (req, res) => {
+    db.query('SELECT * FROM Cliente', (err, results) => {
+        if (err) {
+        res.status(500).send('Error fetching customers from database');
+        return;
+        }
+        res.json(results);
+    });
+});
+
 module.exports = router;
