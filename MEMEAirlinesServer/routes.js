@@ -95,4 +95,27 @@ router.get('/customers', (req, res) => {
     });
 });
 
+router.get('/suppliers', (req, res) => {
+    db.query('SELECT * FROM Fornitore', (err, results) => {
+        if (err) {
+        res.status(500).send('Error fetching suppliers from database');
+        return;
+        }
+        res.json(results);
+    });
+});
+
+router.post('/supplier', (req, res) => {
+    const {Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono} = req.body;
+    console.log(req.body);
+    const queryFornitore = `INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono) VALUES (?, ?, ?, ?, ?, ?)`;
+    db.query(queryFornitore, [Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono], (err, _) => {
+        if (err) {
+            res.status(500).send('Error adding supplier to database');
+            return;
+        }
+        res.status(201).send('Supplier added successfully');
+    });
+});
+
 module.exports = router;
