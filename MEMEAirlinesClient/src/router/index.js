@@ -14,6 +14,7 @@ import AssignMainetance from "../views/AssignMainetance.vue";
 import FlightMenus from "../views/FlightMenus.vue";
 import CancelFlight from "../views/CancelFlight.vue";
 import NewAircraft from "../views/NewAircraft.vue"
+import AssignCrew from '../views/AssignCrew.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -24,6 +25,7 @@ const routes = [
     { path: '/monthly-revenue', component: MonthlyRevenue},
     { path: '/new-flight', component: NewFlight },
     { path: '/new-customer', component: NewCustomer },
+    { path: '/assign-crew', component: AssignCrew },
     { path: '/new-maintenance', component: NewMaintenance },
     { path: '/new-aircraft', component: NewAircraft },
     { path: '/passenger-list', component: PassengerList },

@@ -71,6 +71,14 @@ export default {
             }
         }
 
+        const emptyForm = () => {
+            modello.value = null
+            capacita.value = null
+            costo.value = null
+            dataAcquisto.value = null
+            fornitore.value = null
+        }
+
         const modello = ref()
         const capacita = ref()
         const costo = ref()
@@ -84,6 +92,7 @@ export default {
             try {
                 await axios.post('http://localhost:3000/api/aircrafts', aircraft);
                 alert('Aircraft added successfully');
+                emptyForm()
                 await getAircrafts();
             } catch (error) {
                 console.error('Error adding flight:', error);

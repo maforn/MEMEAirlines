@@ -29,6 +29,16 @@ router.post('/aircrafts', (req, res) => {
   });
 });
 
+router.get('/flightCrewAssignments', (req, res) => {
+  db.query('SELECT * FROM FaParteDel', (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching aeromobiles from database');
+      return;
+    }
+    res.json(results);
+  });
+});
+
 router.get('/flights', (req, res) => {
   db.query('SELECT * FROM Volo ORDER BY Partenza_prevista DESC', (err, results) => {
     if (err) {
@@ -119,6 +129,34 @@ router.post('/maintenances', (req, res) => {
       return;
     }
     res.status(201).send('Maintenance record added successfully');
+  });
+});
+
+router.get('/flightCrewEmployees', (req, res) => {
+  db.query('SELECT * FROM Dipendente WHERE Ruolo = "Pilota" or Ruolo = "Assistente di Volo"', (err, results) => {
+    if (err) {
+      res.status(500).send('Error fetching flight crew employees from database');
+      return;
+    }
+    res.json(results);
+  });
+});
+
+// Add a new assignment
+router.post('/flightCrewAssignments', (req, res) => {
+  const { flightId, employeeId } = req.body;
+
+  const query = `
+    INSERT INTO FaParteDel (Volo, Dipendente)
+    VALUES (?, ?)
+  `;
+
+  db.query(query, [flightId, employeeId], (err, _) => {
+    if (err) {
+      res.status(500).send('Error adding assignment to database');
+      return;
+    }
+    res.status(201).send('Assignment added successfully');
   });
 });
 
