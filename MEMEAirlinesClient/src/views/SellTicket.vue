@@ -59,7 +59,7 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
       >
         <option value="" disabled selected>Seleziona un volo</option>
-        <option v-for="f in voli" :key="f.ID" :value="f.ID" v-on:click="fetchMenu">{{ f.Origine }} ({{f.Partenza_prevista}}) - {{ f.Destinazione }} ({{f.Arrivo_previsto}})</option>
+        <option v-for="f in voli" :key="f.ID" :value="f.ID">{{ f.Origine }} ({{f.Partenza_prevista}}) - {{ f.Destinazione }} ({{f.Arrivo_previsto}})</option>
       </select>
     </div>
     <div>
@@ -71,7 +71,7 @@
           class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
       >
         <option value="" disabled selected>Seleziona un menu</option>
-        <option v-for="m in menuDisponibili" :key="m.Nome" :value="{menu: m.Nome, servizio: m.ServizioDiCatering}">{{ m.Nome }} (€{{ m.Prezzo }})</option>
+        <option v-for="m in menuDisponibili" :key="m.Nome" :value="{menu: m.Nome}">{{ m.Nome }} (€{{ m.Prezzo }})</option>
       </select>
     </div>
     <div>
@@ -148,7 +148,7 @@
 </template>
 
 <script>
-import { ref, computed, onMounted } from "vue";
+import {ref, computed, onMounted, watch} from "vue";
 import axios from "axios";
 
 export default {
@@ -194,11 +194,7 @@ export default {
 
     const fetchMenu = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/menu', {
-          params: {
-            volo: volo.value,
-          },
-        });
+        const response = await axios.get(`http://localhost:3000/api/flights/${volo.value}/menus`);
         menuDisponibili.value = response.data;
       } catch (error) {
         console.error('Error fetching menus:', error);
@@ -232,6 +228,8 @@ export default {
 
     onMounted(fetchClienti);
     onMounted(fetchVoli);
+
+    watch(volo, fetchMenu);
 
     return {
       lettere,

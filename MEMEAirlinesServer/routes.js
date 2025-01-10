@@ -331,16 +331,6 @@ router.post('/sellTicket', (req, res) => {
     });
 });
 
-router.get('/menu', (req, res) => {
-    db.query('select  Menu.Nome,Menu.ServizioDiCatering from Menu,Possiede,ServizioDiCatering where Possiede.Volo=? and Possiede.ServizioDiCatering=ServizioDiCatering.ID and ServizioDiCatering.ID=Menu.ServizioDiCatering;',[req.query.volo], (err, results) => {
-        if (err) {
-            res.status(500).send('Error fetching menu from database');
-            return;
-        }
-        res.json(results);
-    });
-});
-
 router.get('/suppliers', (req, res) => {
     db.query('SELECT * FROM Fornitore', (err, results) => {
         if (err) {
