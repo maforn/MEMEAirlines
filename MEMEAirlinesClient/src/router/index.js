@@ -13,6 +13,7 @@ import NewEmployee from "../views/NewEmployee.vue";
 import AssignMainetance from "../views/AssignMainetance.vue";
 import FlightMenus from "../views/FlightMenus.vue";
 import CancelFlight from "../views/CancelFlight.vue";
+import NewAircraft from "../views/NewAircraft.vue"
 
 const routes = [
     { path: '/', component: Home },
@@ -24,6 +25,7 @@ const routes = [
     { path: '/new-flight', component: NewFlight },
     { path: '/new-customer', component: NewCustomer },
     { path: '/new-maintenance', component: NewMaintenance },
+    { path: '/new-aircraft', component: NewAircraft },
     { path: '/passenger-list', component: PassengerList },
     { path: '/flight-hours', component: FlightHours },
     { path: '/new-employee', component: NewEmployee},

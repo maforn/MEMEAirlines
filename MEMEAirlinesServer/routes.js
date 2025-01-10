@@ -3,12 +3,29 @@ const router = express.Router();
 const db = require('./db'); // Assuming you have a separate db.js file for database connection
 
 router.get('/aircrafts', (req, res) => {
-  db.query('SELECT ID, MODELLO FROM Aeromobile', (err, results) => {
+  db.query('SELECT * FROM Aeromobile', (err, results) => {
     if (err) {
       res.status(500).send('Error fetching aeromobiles from database');
       return;
     }
     res.json(results);
+  });
+});
+
+router.post('/aircrafts', (req, res) => {
+  const { modello, capacita, costo, dataAcquisto, fornitore } = req.body;
+
+  const query = `
+    INSERT INTO Aeromobile (Modello, Capacita, Costo, Data_di_acquisto, Fornitore)
+    VALUES (?, ?, ?, ?, ?)
+  `;
+
+  db.query(query, [modello, capacita, costo, dataAcquisto, fornitore], (err, _) => {
+    if (err) {
+      res.status(500).send('Error adding flight to database');
+      return;
+    }
+    res.status(201).send('Flight added successfully');
   });
 });
 
