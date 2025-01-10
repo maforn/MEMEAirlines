@@ -255,16 +255,16 @@ INSERT INTO Menu (Nome, ServizioDiCatering, Prezzo, Descrizione, Tipo_di_cucina,
 
 -- Inserimenti per la tabella Biglietto
 INSERT INTO Biglietto (Stato, Posto, Classe, Orario_check_in, Cliente, Volo, Menu, ServizioDiCatering) VALUES
-('pianificato', '12A', 'Economy', '2025-01-15 06:00:00', 1, 1, 'Menu Vegano', 1),
-('pianificato', '14B', 'Business', '2025-01-16 08:00:00', 2, 2, 'Menu Classico', 2),
-('pianificato', '15C', 'Economy', '2025-01-17 11:00:00', 3, 3, 'Menu Gluten Free', 3),
-('pianificato', '16D', 'First Class', '2025-01-18 05:30:00', 4, 4, 'Menu Gourmet', 4),
-('pianificato', '18E', 'Economy', '2025-01-19 09:00:00', 5, 5, 'Menu Light', 5),
-('pianificato', '19F', 'Business', '2025-01-20 12:30:00', 6, 6, 'Menu Bio', 6),
-('pianificato', '21G', 'First Class', '2025-01-21 07:00:00', 7, 7, 'Menu Regionale', 7),
-('pianificato', '22H', 'Economy', '2025-01-22 14:00:00', 8, 8, 'Menu Internazionale', 8),
-('pianificato', '24I', 'Business', '2025-01-23 10:30:00', 9, 9, 'Menu Marino', 9),
-('pianificato', '25J', 'First Class', '2025-01-24 13:00:00', 10, 10, 'Menu Kids', 10);
+('pianificato', '12A', 'Economy', '2025-01-15 06:00:00', 1, 1, NULL, NULL),
+('pianificato', '14B', 'Business', '2025-01-16 08:00:00', 2, 2, NULL, NULL),
+('pianificato', '15C', 'Economy', '2025-01-17 11:00:00', 3, 3, NULL, NULL),
+('pianificato', '16D', 'First Class', '2025-01-18 05:30:00', 4, 4, 'Menu Vegano', 1),
+('pianificato', '18E', 'Economy', '2025-01-19 09:00:00', 5, 5, 'Menu Classico', 2),
+('pianificato', '19F', 'Business', '2025-01-20 12:30:00', 6, 6, 'Menu Gluten Free', 3),
+('pianificato', '21G', 'First Class', '2025-01-21 07:00:00', 7, 7, 'Menu Gourmet', 4),
+('pianificato', '22H', 'Economy', '2025-01-22 14:00:00', 8, 8, 'Menu Light', 5),
+('pianificato', '24I', 'Business', '2025-01-23 10:30:00', 9, 9, 'Menu Bio', 6),
+('pianificato', '25J', 'First Class', '2025-01-24 13:00:00', 10, 10, 'Menu Regionale', 7);
 
 -- Inserimenti per la tabella DatiDiAcquisto
 INSERT INTO DatiDiAcquisto (Biglietto, Prezzo_pagato, Data_di_acquisto, Coordinate_di_pagamento, Rimborsato) VALUES
