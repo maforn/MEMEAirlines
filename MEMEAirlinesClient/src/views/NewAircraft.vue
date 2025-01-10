@@ -65,7 +65,6 @@ export default {
             try {
                 const response = await axios.get('http://localhost:3000/api/aircrafts');
                 aircrafts.value = response.data;
-                console.log(aircrafts.value)
             } catch (error) {
                 console.error('Error fetching flights:', error);
             }

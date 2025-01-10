@@ -15,6 +15,7 @@ import FlightMenus from "../views/FlightMenus.vue";
 import CancelFlight from "../views/CancelFlight.vue";
 import NewAircraft from "../views/NewAircraft.vue"
 import AssignCrew from '../views/AssignCrew.vue';
+import SupplierList from '../views/SupplierList.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -31,6 +32,7 @@ const routes = [
     { path: '/passenger-list', component: PassengerList },
     { path: '/flight-hours', component: FlightHours },
     { path: '/new-employee', component: NewEmployee},
+    { path: '/supplier-list', component: SupplierList },
     { path: '/assign-maintenance', component: AssignMainetance},
     { path: '/flight-menus', component: FlightMenus},
     { path: '/cancel-flight', component: CancelFlight}
