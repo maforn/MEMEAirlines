@@ -8,7 +8,7 @@
                     <select v-model="selectedAircraftId" id="aircraft"
                         class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
                         <option value="" disabled>Select an aircraft</option>
-                        <option v-for="aircraft in aircrafts" :key="aircraft.ID" :value="aircraft.ID">{{ aircraft.ID }} ({{ aircraft.MODELLO }})</option>
+                        <option v-for="aircraft in aircrafts" :key="aircraft.ID" :value="aircraft.ID">{{ aircraft.ID }} ({{ aircraft.Modello }})</option>
                     </select>
                 </div>
                 <button type="submit"
