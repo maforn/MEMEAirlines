@@ -90,14 +90,54 @@
       />
     </div>
     <div>
-      <label for="coordinateDiPagamento" class="block text-sm font-medium text-gray-700">Coordinate di Pagamento:</label>
-      <input
-          type="text"
-          id="coordinateDiPagamento"
-          v-model="coordinateDiPagamento"
-          required
-          class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
-      >
+      <div>
+        <label for="numeroCarta" class="block text-sm font-medium text-gray-700">Numero Carta:</label>
+        <input
+            type="text"
+            id="numeroCarta"
+            v-model="numeroCarta"
+            required
+            maxlength="16"
+            pattern="\d*"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        >
+      </div>
+      <div>
+        <label for="cvv" class="block text-sm font-medium text-gray-700">CVV:</label>
+        <input
+            type="text"
+            id="cvv"
+            v-model="cvv"
+            required
+            maxlength="3"
+            pattern="\d*"
+            class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+        >
+      </div>
+      <div>
+        <label for="dataScadenza" class="block text-sm font-medium text-gray-700">Data di Scadenza:</label>
+        <div class="flex space-x-2" id="dataScadenza">
+          <input
+              type="text"
+              id="meseScadenza"
+              v-model="meseScadenza"
+              required
+              maxlength="2"
+              pattern="^(0[1-9]|1[0-2])$"
+              class="mt-1 block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          >
+          <span>/</span>
+          <input
+              type="text"
+              id="annoScadenza"
+              v-model="annoScadenza"
+              maxlength="2"
+              pattern="^\d{2}$"
+              required
+              class="mt-1 block w-1/2 rounded-md border-gray-300 shadow-sm focus:border-indigo-500 focus:ring-indigo-500 sm:text-sm"
+          >
+        </div>
+      </div>
     </div>
     <button
         type="submit"
@@ -125,7 +165,11 @@ export default {
     const volo = ref("");
     const menu = ref("");
     const prezzoPagato = ref(null);
-    const coordinateDiPagamento = ref("");
+    const numeroCarta = ref("");
+    const cvv = ref("");
+    const meseScadenza = ref("");
+    const annoScadenza = ref("");
+
 
     const posto = computed(() => `${postoNumero.value}${postoLettera.value}`);
 
@@ -173,7 +217,7 @@ export default {
           menu: menu.value.menu,
           servizioDiCatering: menu.value.servizio,
           prezzoPagato: prezzoPagato.value,
-          coordinateDiPagamento: coordinateDiPagamento.value
+          coordinateDiPagamento: `${numeroCarta.value} ${cvv.value} ${meseScadenza.value}/${annoScadenza.value}`
         });
         if (response.status === 201) {
           alert('Biglietto venduto con successo');
@@ -201,11 +245,14 @@ export default {
       volo,
       menu,
       prezzoPagato,
-      coordinateDiPagamento,
       posto,
       sellTicket,
       menuDisponibili,
-      fetchMenu
+      fetchMenu,
+      numeroCarta,
+      cvv,
+      meseScadenza,
+      annoScadenza
     };
   },
 };
