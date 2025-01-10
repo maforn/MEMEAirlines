@@ -8,7 +8,8 @@ create table Cliente (
     Data_di_nascita date not null,
     Genere char(1) not null,
     Telefono char(10) not null,
-    Email char(50) not null
+    Email char(50) not null,
+    check(Genere in ('M', 'F'))
 );
 
 create table Fornitore(
@@ -40,7 +41,7 @@ create table Volo (
     Arrivo_previsto datetime not null,
     Partenza_effettiva datetime,
     Arrivo_effettivo datetime,
-    Stato char(50) not null,
+    Stato char(15) not null,
     Aeromobile int not null,
     foreign key(Aeromobile) references Aeromobile(ID),
     check(Stato in ('pianificato', 'in volo', 'completato', 'cancellato')),
@@ -75,7 +76,7 @@ create table Menu(
 
 create table Biglietto(
     ID int primary key auto_increment,
-    Stato char(50) not null,
+    Stato char(15) not null,
     Posto char(50) not null,
     Classe char(50) not null,
     Orario_check_in datetime not null,
