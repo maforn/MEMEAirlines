@@ -10,7 +10,8 @@ export default {
       Nome: '',
       Cognome: '',
       Email: '',
-      Telefono: ''
+      Telefono: '',
+      Tipo: ''
     });
 
     const suppliers = ref([]);
@@ -59,8 +60,16 @@ export default {
         <input v-model="newSupplier.Partita_IVA" id="Partita_IVA" name="Partita_IVA" type="text" maxlength="11" pattern="\d*" autocomplete="Partita_IVA" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
       </div>
       <div class="mb-4">
-        <label for="Denominazione" class="block text-sm font-medium text-gray-700">Denominazione</label>
+      <label for="Denominazione" class="block text-sm font-medium text-gray-700">Denominazione</label>
         <input v-model="newSupplier.Denominazione" id="Denominazione" name="Denominazione" type="text" autocomplete="Denominazione" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+      </div>
+      <div class="mb-4">
+      <label for="Tipo" class="block text-sm font-medium text-gray-700">Tipo</label>
+        <select v-model="newSupplier.Tipo" id="Tipo" class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-md shadow-sm focus:outline-none focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm">
+          <option value="aeromobili">Aeromobili</option>
+          <option value="catering">Catering</option>
+          <option value="manutenzione">Prodotti per la manutenzione</option>
+        </select>
       </div>
       <div class="mb-4">
         <label for="Nome" class="block text-sm font-medium text-gray-700">Nome</label>
@@ -89,6 +98,7 @@ export default {
     <tr>
       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Partita_IVA</th>
       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Denominazione</th>
+      <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Tipo</th>
       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Nome</th>
       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Cognome</th>
       <th scope="col" class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Email</th>
@@ -99,6 +109,7 @@ export default {
     <tr v-for="supplier in suppliers" :key="supplier.Partita_IVA">
       <td class="px-6 py-4 whitespace-nowrap">{{ supplier.Partita_IVA }}</td>
       <td class="px-6 py-4 whitespace-nowrap">{{ supplier.Denominazione }}</td>
+      <td class="px-6 py-4 whitespace-nowrap">{{ supplier.Tipo }}</td>
       <td class="px-6 py-4 whitespace-nowrap">{{ supplier.Nome }}</td>
       <td class="px-6 py-4 whitespace-nowrap">{{ supplier.Cognome }}</td>
       <td class="px-6 py-4 whitespace-nowrap">{{ supplier.Email }}</td>
