@@ -13,6 +13,10 @@ import NewEmployee from "../views/NewEmployee.vue";
 import AssignMainetance from "../views/AssignMainetance.vue";
 import FlightMenus from "../views/FlightMenus.vue";
 import CancelFlight from "../views/CancelFlight.vue";
+import NewAircraft from "../views/NewAircraft.vue"
+import AssignCrew from '../views/AssignCrew.vue';
+import SupplierList from '../views/SupplierList.vue';
+import EmployeePay from '../views/EmployeePay.vue';
 
 const routes = [
     { path: '/', component: Home },
@@ -23,10 +27,14 @@ const routes = [
     { path: '/monthly-revenue', component: MonthlyRevenue},
     { path: '/new-flight', component: NewFlight },
     { path: '/new-customer', component: NewCustomer },
+    { path: '/assign-crew', component: AssignCrew },
     { path: '/new-maintenance', component: NewMaintenance },
+    { path: '/new-aircraft', component: NewAircraft },
     { path: '/passenger-list', component: PassengerList },
     { path: '/flight-hours', component: FlightHours },
     { path: '/new-employee', component: NewEmployee},
+    { path: '/employee-pay', component: EmployeePay},
+    { path: '/supplier-list', component: SupplierList },
     { path: '/assign-maintenance', component: AssignMainetance},
     { path: '/flight-menus', component: FlightMenus},
     { path: '/cancel-flight', component: CancelFlight}
