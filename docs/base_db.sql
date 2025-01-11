@@ -429,6 +429,54 @@ FROM DatiDiAcquisto
 WHERE MONTH(DatiDiAcquisto.Data_di_acquisto) = MONTH(CURDATE()) AND YEAR(DatiDiAcquisto.Data_di_acquisto) = YEAR(CURDATE());
 
 -- 14. Calcolare la paga per il mese corrente per un dipendente
+WITH OreVoli AS (
+    SELECT
+        partecipazioniVoli.Dipendente,
+        SUM(TIMESTAMPDIFF(HOUR, v.Partenza_effettiva, v.Arrivo_effettivo)) AS ore_voli
+    FROM
+        FaParteDel partecipazioniVoli
+            JOIN
+        Volo v ON partecipazioniVoli.Volo = v.ID
+    WHERE
+        v.stato = 'completato'
+      AND MONTH(v.Partenza_effettiva) = MONTH(CURRENT_DATE)
+      AND YEAR(v.Partenza_effettiva) = YEAR(CURRENT_DATE)
+    GROUP BY
+        partecipazioniVoli.Dipendente,v.Partenza_effettiva,v.Arrivo_effettivo
+),
+     OreManutenzioni AS (
+         SELECT
+             effettuaManutenzioni.Dipendente,
+             SUM(interventi.durata) AS ore_manutenzione
+         FROM
+             Effettua effettuaManutenzioni
+                 JOIN
+             InterventoDiManutenzione interventi ON effettuaManutenzioni.InterventoDiManutenzione = interventi.ID
+         WHERE
+             MONTH(interventi.Data) = MONTH(CURRENT_DATE)
+           AND YEAR(interventi.Data) = YEAR(CURRENT_DATE)
+         GROUP BY
+             effettuaManutenzioni.Dipendente
+     )
+SELECT
+    d.ID,
+    d.Ruolo,
+    d.Nome,
+    d.Cognome,
+    CASE
+        WHEN d.Ruolo = 'Personale di Terra' THEN d.Ore_annuali_previste / 12 * d.Compenso_orario
+        WHEN d.Ruolo = 'Pilota' or d.Ruolo = 'Assistente di Volo' THEN COALESCE(ov.ore_voli, 0) * d.Compenso_orario
+        WHEN d.Ruolo = 'Tecnico di Manutenzione' THEN COALESCE(om.ore_manutenzione, 0) * d.Compenso_orario
+        ELSE 0
+        END AS Paga_mensile
+FROM
+    Dipendente d
+        LEFT JOIN
+    OreVoli ov ON d.ID = ov.Dipendente
+        LEFT JOIN
+    OreManutenzioni om ON d.ID = om.Dipendente
+WHERE
+    d.ID = ?;
 
 
 -- 15. Visualizzare i menu disponibili per un volo
