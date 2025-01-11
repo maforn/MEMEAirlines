@@ -70,8 +70,8 @@ export default {
                 const response = await axios.get('http://localhost:3000/api/flightCrewAssignments');
                 assignments.value = response.data;
             } catch (error) {
-                alert('Error fetching maintenances');
-                console.error('Error fetching maintenances:', error);
+                alert('Error fetching flight crew assignments');
+                console.error('Error fetching flight crew assignments:', error);
             }
         }
 
@@ -81,8 +81,8 @@ export default {
                 employees.value = response.data;
                 console.log(employees.value)
             } catch (error) {
-                alert('Error fetching maintenances');
-                console.error('Error fetching maintenances:', error);
+                alert('Error fetching flight crew employees');
+                console.error('Error fetching flight crew employees:', error);
             }
         }
 
@@ -92,8 +92,8 @@ export default {
                 flights.value = response.data;
                 console.log(flights.value)
             } catch (error) {
-                alert('Error fetching maintenances');
-                console.error('Error fetching maintenances:', error);
+                alert('Error fetching flights');
+                console.error('Error fetching flights:', error);
             }
         }
 
