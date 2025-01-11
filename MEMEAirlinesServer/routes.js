@@ -12,27 +12,11 @@ router.get('/aircrafts', (req, res) => {
   });
 });
 
-router.post('/aircrafts', (req, res) => {
-  const { modello, capacita, costo, dataAcquisto, fornitore } = req.body;
-
-  const query = `
-    INSERT INTO Aeromobile (Modello, Capacita, Costo, Data_di_acquisto, Fornitore)
-    VALUES (?, ?, ?, ?, ?)
-  `;
-
-  db.query(query, [modello, capacita, costo, dataAcquisto, fornitore], (err, _) => {
-    if (err) {
-      res.status(500).send('Error adding flight to database');
-      return;
-    }
-    res.status(201).send('Flight added successfully');
-  });
-});
 
 router.get('/flightCrewAssignments', (req, res) => {
   db.query('SELECT * FROM FaParteDel', (err, results) => {
-    if (err) {
-      res.status(500).send('Error fetching aeromobiles from database');
+  if (err) {
+      res.status(500).send('Error fetching flight crew employees from database');
       return;
     }
     res.json(results);
@@ -447,16 +431,6 @@ router.post('/sellTicket', (req, res) => {
             }
             res.status(201).send('Ticket added successfully');
         });
-    });
-});
-
-router.get('/menu', (req, res) => {
-    db.query('select  Menu.Nome,Menu.ServizioDiCatering from Menu,Possiede,ServizioDiCatering where Possiede.Volo=? and Possiede.ServizioDiCatering=ServizioDiCatering.ID and ServizioDiCatering.ID=Menu.ServizioDiCatering;',[req.query.volo], (err, results) => {
-        if (err) {
-            res.status(500).send('Error fetching menu from database');
-            return;
-        }
-        res.json(results);
     });
 });
 
