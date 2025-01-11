@@ -435,7 +435,19 @@ router.post('/sellTicket', (req, res) => {
 });
 
 router.get('/suppliers', (req, res) => {
-    db.query('SELECT * FROM Fornitore', (err, results) => {
+  db.query('SELECT * FROM Fornitore', (err, results) => {
+        if (err) {
+            res.status(500).send('Error fetching suppliers from database');
+            return;
+        }
+        res.json(results);
+    });
+});
+
+router.get('/suppliers/:tipo', (req, res) => {
+    const { tipo } = req.params;
+    const query = 'SELECT * FROM Fornitore WHERE Tipo = ?';
+    db.query(query, [tipo], (err, results) => {
         if (err) {
             res.status(500).send('Error fetching suppliers from database');
             return;
@@ -445,11 +457,11 @@ router.get('/suppliers', (req, res) => {
 });
 
 router.post('/supplier', (req, res) => {
-    const {Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono} = req.body;
-    const queryFornitore = `INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono) VALUES (?, ?, ?, ?, ?, ?)`;
-    db.query(queryFornitore, [Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono], (err, _) => {
+    const {Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono, Tipo} = req.body;
+    const queryFornitore = `INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono, Tipo) VALUES (?, ?, ?, ?, ?, ?, ?)`;
+    db.query(queryFornitore, [Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono, Tipo], (err, _) => {
         if (err) {
-            res.status(500).send('Error adding supplier to database');
+            res.status(500).send(['Error adding supplier to database', err]);
             return;
         }
         res.status(201).send('Supplier added successfully');
@@ -486,4 +498,5 @@ router.get('/monthly-revenue', (req, res) => {
         res.json(results);
     });
 });
+
 module.exports = router;

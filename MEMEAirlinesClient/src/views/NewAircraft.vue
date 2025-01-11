@@ -129,7 +129,7 @@ export default {
 
     const checkSuppliers = async () => {
       try {
-        const response = await axios.get('/api/suppliers');
+        const response = await axios.get('/api/suppliers/aeromobili');
         suppliers.value = response.data;
       } catch (error) {
         console.error('Error fetching suppliers:', error);

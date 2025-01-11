@@ -18,7 +18,9 @@ create table Fornitore(
     Nome char(50) not null,
     Cognome char(50) not null,
     Email char(50) not null,
-    Telefono char(10) not null
+    Telefono char(10) not null,
+    Tipo char(50) not null,
+    check(Tipo in ('aeromobili','catering', 'manutenzione'))
 );
 
 create table Aeromobile(
@@ -186,17 +188,17 @@ INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Telefono, Email) VA
 ('Martina', 'Viola', '1989-12-30', 'F', '9012345678', 'martina.viola@example.com');
 
 -- Inserimenti per la tabella Fornitore
-INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono) VALUES
-('12345678901', 'Forniture Aeree S.p.A.', 'Giuseppe', 'Verdi', 'giuseppe.verdi@fornitureaeree.com', '1122334455'),
-('09876543210', 'Catering Pro S.r.l.', 'Lucia', 'Neri', 'lucia.neri@cateringpro.com', '5566778899'),
-('11112222333', 'Ricambi Volanti S.p.A.', 'Alberto', 'Bianchi', 'alberto.bianchi@ricambivolanti.com', '6677889900'),
-('44445555666', 'Sky Supplies S.r.l.', 'Franco', 'Blu', 'franco.blu@skysupplies.com', '7788990011'),
-('77778888999', 'Tech Air S.r.l.', 'Claudio', 'Verdi', 'claudio.verdi@techair.com', '8899001122'),
-('22223333444', 'Catering & Co.', 'Laura', 'Rossi', 'laura.rossi@cateringco.com', '9900112233'),
-('33334444555', 'Air Tech Group', 'Paolo', 'Gialli', 'paolo.gialli@airtechgroup.com', '1011121314'),
-('66667777888', 'Volare S.r.l.', 'Mario', 'Neri', 'mario.neri@volaresrl.com', '1415161718'),
-('88889999000', 'Fly High S.p.A.', 'Stefano', 'Blu', 'stefano.blu@flyhigh.com', '1516171819'),
-('99990000111', 'Aero Supplies S.p.A.', 'Luigi', 'Bianchi', 'luigi.bianchi@aerosupplies.com', '1718192021');
+INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono, Tipo) VALUES
+('12345678901', 'Forniture Aeree S.p.A.', 'Giuseppe', 'Verdi', 'giuseppe.verdi@fornitureaeree.com', '1122334455', 'aeromobili'),
+('09876543210', 'Catering Pro S.r.l.', 'Lucia', 'Neri', 'lucia.neri@cateringpro.com', '5566778899', 'catering'),
+('11112222333', 'Ricambi Volanti S.p.A.', 'Alberto', 'Bianchi', 'alberto.bianchi@ricambivolanti.com', '6677889900', 'manutenzione'),
+('44445555666', 'Sky Supplies S.r.l.', 'Franco', 'Blu', 'franco.blu@skysupplies.com', '7788990011', 'catering'),
+('77778888999', 'Tech Air S.r.l.', 'Claudio', 'Verdi', 'claudio.verdi@techair.com', '8899001122', 'manutenzione'),
+('22223333444', 'Catering & Co.', 'Laura', 'Rossi', 'laura.rossi@cateringco.com', '9900112233', 'catering'),
+('33334444555', 'Air Tech Group', 'Paolo', 'Gialli', 'paolo.gialli@airtechgroup.com', '1011121314', 'manutenzione'),
+('66667777888', 'Volare S.r.l.', 'Mario', 'Neri', 'mario.neri@volaresrl.com', '1415161718', 'aeromobili'),
+('88889999000', 'Fly High S.p.A.', 'Stefano', 'Blu', 'stefano.blu@flyhigh.com', '1516171819', 'aeromobili'),
+('99990000111', 'Aero Supplies S.p.A.', 'Luigi', 'Bianchi', 'luigi.bianchi@aerosupplies.com', '1718192021', 'manutenzione');
 
 -- Inserimenti per la tabella Aeromobile
 INSERT INTO Aeromobile (Modello, Capacita, Costo, Data_di_acquisto, Fornitore) VALUES
@@ -395,7 +397,7 @@ INSERT INTO InterventoDiManutenzione (Tipo, Data, Durata, Aeromobile)
 VALUES ();
 
 -- 7. Inserire un nuovo fornitore
-INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono)
+INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono, Tipo)
 VALUES ();
 
 -- 8. Assegnare un membro dell’equipaggio ad un volo
