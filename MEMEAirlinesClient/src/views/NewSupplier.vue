@@ -17,7 +17,7 @@ export default {
 
     const submitForm = async () => {
       try {
-        await axios.post('http://localhost:3000/api/supplier', newSupplier.value);
+        await axios.post('/api/supplier', newSupplier.value);
         alert('Supplier added successfully');
         await checkSuppliers();
       } catch (error) {
@@ -27,7 +27,7 @@ export default {
 
     const checkSuppliers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/suppliers');
+        const response = await axios.get('/api/suppliers');
         suppliers.value = response.data;
       } catch (error) {
         console.error('Error fetching suppliers:', error);

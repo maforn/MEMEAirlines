@@ -8,7 +8,7 @@ const tickets = ref([]);
 
 const fetchFlights = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/flights');
+    const response = await axios.get('/api/flights');
     flights.value = response.data;
   } catch (error) {
     alert('Error fetching flights');
@@ -18,7 +18,7 @@ const fetchFlights = async () => {
 
 const fetchTickets = async (flightId) => {
   try {
-    const response = await axios.get(`http://localhost:3000/api/flights/${flightId}/tickets`);
+    const response = await axios.get(`/api/flights/${flightId}/tickets`);
     tickets.value = response.data;
   } catch (error) {
     alert('Error fetching tickets');
@@ -29,7 +29,7 @@ const fetchTickets = async (flightId) => {
 const cancelFlight = async () => {
   if (!selectedFlightId.value) return;
   try {
-    await axios.post(`http://localhost:3000/api/flights/${selectedFlightId.value}/cancel`);
+    await axios.post(`/api/flights/${selectedFlightId.value}/cancel`);
     alert('Flight cancelled successfully');
     await fetchFlights();
   } catch (error) {

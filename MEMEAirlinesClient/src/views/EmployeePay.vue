@@ -30,7 +30,7 @@ export default {
 
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/employees');
+                const response = await axios.get('/api/employees');
                 employees.value = response.data;
                 console.log(employees.value)
             } catch (error) {
@@ -42,7 +42,7 @@ export default {
         const calculateMonthlyPay = async () => {
             if (employeeId) {
                 try {
-                const response = await axios.get(`http://localhost:3000/api/monthlyPay/${employeeId.value}`);
+                const response = await axios.get(`/api/monthlyPay/${employeeId.value}`);
                 monthlyPay.value = response.data;
                 console.log(monthlyPay.value)
                 } catch (error) {

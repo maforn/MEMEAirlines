@@ -36,7 +36,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                const response = await axios.get(`http://localhost:3000/api/flighthours?aircraftId=${this.selectedAircraftId}`);
+                const response = await axios.get(`/api/flighthours?aircraftId=${this.selectedAircraftId}`);
                 this.result = `Flight hours: ${response.data.hours} hours.`;
                 console.log(response.data);
             } catch (error) {
@@ -45,7 +45,7 @@ export default {
         },
         async getAircrafts() {
             try {
-                const response = await axios.get('http://localhost:3000/api/aircrafts');
+                const response = await axios.get('/api/aircrafts');
                 this.aircrafts = response.data;
             } catch (error) {
                 alert('Error fetching aircrafts:', error);

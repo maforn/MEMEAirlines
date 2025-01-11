@@ -17,7 +17,7 @@ const newFlight = ref({
 
 onMounted(async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/aircrafts');
+    const response = await axios.get('/api/aircrafts');
     aircrafts.value = response.data;
   } catch (error) {
     console.error('Error fetching aircrafts:', error);
@@ -26,7 +26,7 @@ onMounted(async () => {
 
 const submitForm = async () => {
   try {
-    await axios.post('http://localhost:3000/api/flights', newFlight.value);
+    await axios.post('/api/flights', newFlight.value);
     alert('Flight added successfully');
     await checkFlights();
   } catch (error) {
@@ -36,7 +36,7 @@ const submitForm = async () => {
 
 const checkFlights = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/flights');
+    const response = await axios.get('/api/flights');
     flights.value = response.data;
   } catch (error) {
     console.error('Error fetching flights:', error);

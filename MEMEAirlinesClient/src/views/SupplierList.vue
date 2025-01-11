@@ -33,7 +33,7 @@ export default {
 
         const getSuppliers = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/suppliers');
+                const response = await axios.get('/api/suppliers');
                 suppliers.value = response.data;
             } catch (error) {
                 alert('Error fetching suppliers');

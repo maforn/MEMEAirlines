@@ -64,7 +64,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                const response = await axios.get(`http://localhost:3000/api/passengers?flightId=${this.selectedFlightId}`);
+                const response = await axios.get(`/api/passengers?flightId=${this.selectedFlightId}`);
                 console.log(response.data);
                 this.passengers = response.data;
             } catch (error) {
@@ -73,7 +73,7 @@ export default {
         },
         async getFlights() {
             try {
-                const response = await axios.get('http://localhost:3000/api/flights');
+                const response = await axios.get('/api/flights');
                 this.flights = response.data;
             } catch (error) {
                 alert('Error fetching flights:', error);

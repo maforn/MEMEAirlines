@@ -44,7 +44,7 @@ export default {
     setup() {
         const assegnaPersonale = async () => {
             try {
-                await axios.post('http://localhost:3000/api/flightCrewAssignments', newAssignment.value);
+                await axios.post('/api/flightCrewAssignments', newAssignment.value);
                 alert('Assignment added successfully');
                 await fetchAssignments();
                 newAssignment.value.flightId = ''
@@ -67,7 +67,7 @@ export default {
 
         const fetchAssignments = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/flightCrewAssignments');
+                const response = await axios.get('/api/flightCrewAssignments');
                 assignments.value = response.data;
             } catch (error) {
                 alert('Error fetching flight crew assignments');
@@ -77,7 +77,7 @@ export default {
 
         const fetchEmployees = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/flightCrewEmployees');
+                const response = await axios.get('/api/flightCrewEmployees');
                 employees.value = response.data;
                 console.log(employees.value)
             } catch (error) {
@@ -88,7 +88,7 @@ export default {
 
         const fetchFlights = async () => {
             try {
-                const response = await axios.get('http://localhost:3000/api/flights');
+                const response = await axios.get('/api/flights');
                 flights.value = response.data;
                 console.log(flights.value)
             } catch (error) {

@@ -1,5 +1,5 @@
 # MEMEAirlines
-MEMEAirlines, a simple Vue, Nodejs and MySQL demonstration project
+MEMEAirlines, a simple Vue, Nodejs and MySQL demonstration project.
 
 ## Project setup
 Do the following to setup the project
@@ -24,4 +24,20 @@ and the client by running
 ```
 cd MEMEAirlinesClient
 npm run dev
+```
+
+## Production server
+Start the production server by switching to the deploy branch
+```
+git checkout deploy
+```
+building the client
+```
+cd MEMEAirlinesClient
+npm run build
+```
+and running the server
+```
+cd MEMEAirlinesServer
+npm run start
 ```

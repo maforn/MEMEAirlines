@@ -176,7 +176,7 @@ export default {
     const fetchClienti = async () => {
       try {
 
-        const response = await axios.get('http://localhost:3000/api/customers');
+        const response = await axios.get('/api/customers');
         clienti.value = response.data;
       } catch (error) {
         console.error("Errore durante il caricamento dei clienti:", error);
@@ -185,7 +185,7 @@ export default {
 
     const fetchVoli = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/flights');
+        const response = await axios.get('/api/flights');
         voli.value = response.data;
       } catch (error) {
         console.error('Error fetching flights:', error);
@@ -194,7 +194,7 @@ export default {
 
     const fetchMenu = async () => {
       try {
-        const response = await axios.get(`http://localhost:3000/api/flights/${volo.value}/menus`);
+        const response = await axios.get(`/api/flights/${volo.value}/menus`);
         menuDisponibili.value = response.data;
       } catch (error) {
         console.error('Error fetching menus:', error);
@@ -205,7 +205,7 @@ export default {
 
     const sellTicket = async () => {
       try {
-        const response = await axios.post('http://localhost:3000/api/sellTicket', {
+        const response = await axios.post('/api/sellTicket', {
           posto: posto.value,
           classe: classe.value,
           cliente: cliente.value,

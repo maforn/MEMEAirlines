@@ -12,7 +12,7 @@ const newAssignment = ref({
 
 const fetchMaintenances = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/maintenances');
+    const response = await axios.get('/api/maintenances');
     maintenances.value = response.data;
   } catch (error) {
     alert('Error fetching maintenances');
@@ -22,7 +22,7 @@ const fetchMaintenances = async () => {
 
 const fetchEmployees = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/maintenteers');
+    const response = await axios.get('/api/maintenteers');
     employees.value = response.data;
   } catch (error) {
     alert('Error fetching employees');
@@ -32,7 +32,7 @@ const fetchEmployees = async () => {
 
 const fetchAssignments = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/assignments');
+    const response = await axios.get('/api/assignments');
     assignments.value = response.data;
   } catch (error) {
     alert('Error fetching assignments');
@@ -42,7 +42,7 @@ const fetchAssignments = async () => {
 
 const submitForm = async () => {
   try {
-    await axios.post('http://localhost:3000/api/assignments', newAssignment.value);
+    await axios.post('/api/assignments', newAssignment.value);
     alert('Assignment added successfully');
     await fetchAssignments();
   } catch (error) {

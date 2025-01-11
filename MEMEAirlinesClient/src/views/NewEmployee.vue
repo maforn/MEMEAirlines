@@ -13,7 +13,7 @@ const newEmployee = ref({
 
 const submitForm = async () => {
   try {
-    await axios.post('http://localhost:3000/api/employees', newEmployee.value);
+    await axios.post('/api/employees', newEmployee.value);
     alert('Employee added successfully');
     await fetchEmployees();
   } catch (error) {
@@ -24,7 +24,7 @@ const submitForm = async () => {
 
 const fetchEmployees = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/employees');
+    const response = await axios.get('/api/employees');
     employees.value = response.data;
   } catch (error) {
     alert('Error fetching employees');

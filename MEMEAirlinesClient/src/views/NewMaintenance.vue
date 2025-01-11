@@ -77,7 +77,7 @@ export default {
     methods: {
         async submitForm() {
             try {
-                await axios.post('http://localhost:3000/api/maintenances', this.maintenance);
+                await axios.post('/api/maintenances', this.maintenance);
                 alert('Maintenance added successfully!');
                 await this.getMaintenances();
             } catch (error) {
@@ -86,7 +86,7 @@ export default {
         },
         async getAircrafts() {
             try {
-                const response = await axios.get('http://localhost:3000/api/aircrafts');
+                const response = await axios.get('/api/aircrafts');
                 console.log(response.data);
                 this.aircrafts = response.data;
             } catch (error) {
@@ -95,7 +95,7 @@ export default {
         },
         async getMaintenances() {
             try {
-                const response = await axios.get('http://localhost:3000/api/maintenances');
+                const response = await axios.get('/api/maintenances');
                 console.log(response.data);
                 this.maintenances = response.data;
             } catch (error) {

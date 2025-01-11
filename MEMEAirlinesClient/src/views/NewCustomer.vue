@@ -84,7 +84,7 @@ export default {
     methods: {
         async submitForm() {
             try{
-                await axios.post('http://localhost:3000/api/customers', this.customer);
+                await axios.post('/api/customers', this.customer);
                 alert('Customer added successfully!');
                 this.getCustomers();
             } catch (error) {
@@ -93,7 +93,7 @@ export default {
         },
         async getCustomers() {
             try {
-                const response = await axios.get('http://localhost:3000/api/customers');
+                const response = await axios.get('/api/customers');
                 console.log(response.data);
                 this.customers = response.data;
             } catch (error) {

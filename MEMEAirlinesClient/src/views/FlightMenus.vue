@@ -8,7 +8,7 @@ const menus = ref([]);
 
 const fetchFlights = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/flights');
+    const response = await axios.get('/api/flights');
     flights.value = response.data;
   } catch (error) {
     alert('Error fetching flights');
@@ -19,7 +19,7 @@ const fetchFlights = async () => {
 const fetchMenus = async () => {
   if (!selectedFlightId.value) return;
   try {
-    const response = await axios.get(`http://localhost:3000/api/flights/${selectedFlightId.value}/menus`);
+    const response = await axios.get(`/api/flights/${selectedFlightId.value}/menus`);
     menus.value = response.data;
   } catch (error) {
     alert('Error fetching menus');

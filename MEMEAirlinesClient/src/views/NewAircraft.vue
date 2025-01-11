@@ -90,7 +90,7 @@ export default {
     const aircrafts = ref([])
     const getAircrafts = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/aircrafts');
+        const response = await axios.get('/api/aircrafts');
         aircrafts.value = response.data;
       } catch (error) {
         console.error('Error fetching flights:', error);
@@ -118,7 +118,7 @@ export default {
         'dataAcquisto': dataAcquisto.value, 'fornitore': fornitore.value
       }
       try {
-        await axios.post('http://localhost:3000/api/aircrafts', aircraft);
+        await axios.post('/api/aircrafts', aircraft);
         alert('Aircraft added successfully');
         emptyForm()
         await getAircrafts();
@@ -129,7 +129,7 @@ export default {
 
     const checkSuppliers = async () => {
       try {
-        const response = await axios.get('http://localhost:3000/api/suppliers');
+        const response = await axios.get('/api/suppliers');
         suppliers.value = response.data;
       } catch (error) {
         console.error('Error fetching suppliers:', error);

@@ -5,7 +5,7 @@ const monthlyRevenue = ref(null);
 
 const fetchMonthlyRevenue = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/monthly-revenue');
+    const response = await axios.get('/api/monthly-revenue');
     monthlyRevenue.value = response.data[0].Totale_Incasso;
   } catch (error) {
     console.error('Error fetching monthly revenue:', error);

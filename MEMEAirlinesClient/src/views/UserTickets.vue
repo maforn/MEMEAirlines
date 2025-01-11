@@ -8,7 +8,7 @@ const user = ref();
 const fetchUsers = async () => {
   try {
 
-    const response = await axios.get('http://localhost:3000/api/customers');
+    const response = await axios.get('/api/customers');
     users.value = response.data;
   } catch (error) {
     console.error("Errore durante il caricamento dei clienti:", error);
@@ -18,7 +18,7 @@ const fetchUsers = async () => {
 
 const fetchTickets = async () => {
   try {
-    const response = await axios.get('http://localhost:3000/api/user-tickets', {
+    const response = await axios.get('/api/user-tickets', {
       params: {
         cliente: user.value
       },
