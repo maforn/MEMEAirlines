@@ -7,6 +7,7 @@ create table Cliente (
     Cognome char(50) not null,
     Data_di_nascita date not null,
     Genere char(1) not null,
+    Documento_identificativo char(20) not null,
     Telefono char(10) not null,
     Email char(50) not null,
     check(Genere in ('M', 'F'))
@@ -175,17 +176,17 @@ create table Possiede(
 
 
 -- Inserimenti per la tabella Cliente
-INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Telefono, Email) VALUES
-('Mario', 'Rossi', '1985-05-15', 'M', '1234567890', 'mario.rossi@example.com'),
-('Anna', 'Bianchi', '1990-08-22', 'F', '0987654321', 'anna.bianchi@example.com'),
-('Luca', 'Verdi', '1988-03-12', 'M', '2345678901', 'luca.verdi@example.com'),
-('Giulia', 'Neri', '1995-07-10', 'F', '3456789012', 'giulia.neri@example.com'),
-('Marco', 'Blu', '1982-11-23', 'M', '4567890123', 'marco.blu@example.com'),
-('Sara', 'Rossi', '1993-05-05', 'F', '5678901234', 'sara.rossi@example.com'),
-('Francesco', 'Bianchi', '1980-09-14', 'M', '6789012345', 'francesco.bianchi@example.com'),
-('Elena', 'Verdi', '1996-02-28', 'F', '7890123456', 'elena.verdi@example.com'),
-('Andrea', 'Gialli', '1991-04-18', 'M', '8901234567', 'andrea.gialli@example.com'),
-('Martina', 'Viola', '1989-12-30', 'F', '9012345678', 'martina.viola@example.com');
+INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Documento_identificativo, Telefono, Email) VALUES
+('Mario', 'Rossi', '1985-05-15', 'M', 'AB1234567890', '1234567890', 'mario.rossi@example.com'),
+('Anna', 'Bianchi', '1990-08-22', 'F', 'BC0987654321', '0987654321', 'anna.bianchi@example.com'),
+('Luca', 'Verdi', '1988-03-12', 'M', 'DE2345678901', '2345678901', 'luca.verdi@example.com'),
+('Giulia', 'Neri', '1995-07-10', 'F', 'EF3456789012','3456789012', 'giulia.neri@example.com'),
+('Marco', 'Blu', '1982-11-23', 'M', 'GH4567890123','4567890123', 'marco.blu@example.com'),
+('Sara', 'Rossi', '1993-05-05', 'F', 'JK5678901234','5678901234', 'sara.rossi@example.com'),
+('Francesco', 'Bianchi', '1980-09-14', 'M', 'LM6789012345','6789012345', 'francesco.bianchi@example.com'),
+('Elena', 'Verdi', '1996-02-28', 'F', 'NO7890123456','7890123456', 'elena.verdi@example.com'),
+('Andrea', 'Gialli', '1991-04-18', 'M', 'PQ8901234567','8901234567', 'andrea.gialli@example.com'),
+('Martina', 'Viola', '1989-12-30', 'F', 'RS9012345678','9012345678', 'martina.viola@example.com');
 
 -- Inserimenti per la tabella Fornitore
 INSERT INTO Fornitore (Partita_IVA, Denominazione, Nome, Cognome, Email, Telefono, Tipo) VALUES
@@ -374,7 +375,7 @@ INSERT INTO Volo (Origine, Destinazione, Partenza_prevista, Arrivo_previsto, Sta
 VALUES ();
 
 -- 2. Inserire un nuovo cliente
-INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Telefono, Email)
+INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Documento_identificativo, Telefono, Email)
 VALUES ();
 
 -- 3. Vendere un biglietto

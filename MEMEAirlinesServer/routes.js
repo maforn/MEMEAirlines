@@ -73,14 +73,14 @@ router.get('/employees', (req, res) => {
 });
 
 router.post('/customers', (req, res) => {
-  const { nome, cognome, data_di_nascita, genere, telefono, email } = req.body;
+  const { nome, cognome, data_di_nascita, genere, documento_identificativo, telefono, email } = req.body;
 
   const query = `
-    INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Telefono, Email)
-    VALUES (?, ?, ?, ?, ?, ?)
+    INSERT INTO Cliente (Nome, Cognome, Data_di_nascita, Genere, Documento_identificativo, Telefono, Email)
+    VALUES (?, ?, ?, ?, ?, ?, ?)
   `;
 
-  db.query(query, [nome, cognome, data_di_nascita, genere, telefono, email], (err, _) => {
+  db.query(query, [nome, cognome, data_di_nascita, genere, documento_identificativo, telefono, email], (err, _) => {
     if (err) {
       res.status(500).send('Error adding customer to database');
       return;
