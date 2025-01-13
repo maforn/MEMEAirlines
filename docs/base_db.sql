@@ -352,14 +352,16 @@ INSERT INTO Effettua (InterventoDiManutenzione, Dipendente) VALUES
 INSERT INTO FaParteDel (Volo, Dipendente) VALUES
 (1, 1),
 (1, 2),
-(2, 4),
 (2, 5),
-(3, 1),
-(3, 6),
-(4, 4),
-(4, 8),
-(5, 7),
-(5, 9);
+(2, 7),
+(3, 8),
+(3, 10),
+(4, 1),
+(4, 5),
+(5, 2),
+(5, 8),
+(11, 7),
+(11, 10);
 
 INSERT INTO Possiede (Volo, ServizioDiCatering, Tempi_di_carico, Orario_di_carico, Specifiche_di_conservazione) VALUES
 (4, 1, 2, '2025-01-18 05:00:00', 'Conservare a 4°C'),
